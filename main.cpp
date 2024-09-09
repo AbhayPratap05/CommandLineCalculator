@@ -1,20 +1,22 @@
 #include <iostream>
 #include <cmath>
 
-double sum(double num1, double num2);
-double difference(double num1, double num2);
-double multiply(double num1, double num2);
-double divide(double num1, double num2);
+double sum(double result, double next);
+double difference(double result, double next);
+double multiply(double result, double next);
+double divide(double result, double next);
 double power(double base, double exponent);
-double logarithm(double num1);
-double factorial(double num);
+double logarithm(double lognum);
+double factorial(double factorialnum);
 double sine(double angle);
 double cosine(double angle);
 double tangent(double angle);
 
+
 int main(){
     int choice;
-    int num1, num2;
+    double result, num;
+    char moreChoices;
     std::cout << "\n*************** Calculator ***************\n";
     std::cout << "1: Sum\n";
     std::cout << "2: Difference\n";
@@ -28,121 +30,132 @@ int main(){
     std::cout << "10: Tangent\n";
     std::cout << "----------------------------------------------\n";
     std::cin >> choice;
-
-    switch (choice)
+    if (choice >= 1 && choice <=4)
     {
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-        std::cout << "Enter the 2 numbers: ";
-        std::cin >> num1 >> num2;
-        break;
-    case 5:
-        std::cout << "Enter the Base and Exponent: ";
-        std::cin >> num1 >> num2;
-        break;
-    case 6:
-            std::cout << "Enter number for logarithm: ";
-            std::cin >> num1;
-            break;
-    case 7:
-        std::cout << "Enter an integer for factorial: ";
-        std::cin >> num1;
-        break;
-    case 8:
-    case 9:
-    case 10:
-        std::cout << "Enter an angle in radians: ";
-        std::cin >> num1;
-        break;
-    default:
-        std::cout << "Invalid Choice!\n";
-        break;
+        std::cout << "Enter the first number: ";
+        std::cin >> result;
+        do
+        {
+            std::cout << "Enter next number: ";
+            std::cin >> num;
+            switch (choice)
+            {
+            case 1:
+                result = sum(result, num);
+                break;
+            case 2:
+                result = difference(result, num);
+                break;
+            case 3:
+                result = multiply(result, num);
+                break;
+            case 4:
+                if (num == 0)
+                {
+                    std::cout << result <<" can't be divided by 0!\n";
+                    return 0;
+                }
+                else{
+                    result = divide(result, num);
+                }
+                
+            
+            default:
+                std::cout << "Invalid Choice!\n";
+                break;
+            }
+            std::cout << "Do you want to add another number (Y/N)? ";
+            std::cin >> moreChoices;
+        } while (moreChoices == 'Y' || moreChoices == 'y');
+        
     }
-
-    switch (choice)
+    else if (choice == 5)
     {
-    case 1:
-        std::cout << "Result: " << sum(num1, num2) << '\n';
-        break;
-    case 2:
-        std::cout << "Result: " << difference(num1, num2) << '\n';
-        break;
-    case 3:
-        std::cout << "Result: " << multiply(num1, num2) << '\n';
-        break;
-    case 4:
-        if(num2 != 0 ){
-            std::cout << "Result: " << divide(num1, num2) << '\n';
-        }
-        else{
-            std::cout << num1 << " Can't be devided by 0.\n";
-        }
-        break;
-    case 5:
-        std::cout << "Result: " << power(num1, num2) << '\n';
-        break;
-    case 6:
-        std::cout << "Result: " << logarithm(num1) << '\n';
-        break;
-    case 7:
-        std::cout << "Result: " << factorial(num1) << '\n';
-        break;
-    case 8:
-        std::cout << "Result: " << sine(num1) << '\n';
-        break;
-    case 9:
-        std::cout << "Result: " << cosine(num1) << '\n';
-        break;
-    case 10:
-        std::cout << "Result: " << tangent(num1) << '\n';
-        break;
+        double base, exponent;
+        std::cout << "Enter the base and exponent: ";
+        std::cin >> base >> exponent;
+        result = power(base, exponent);
+    }
+    else if (choice == 6)
+    {
+        double lognum;
+        std::cout << "Enter the number for logarithm (natural log): ";
+        std::cin >> lognum;
+        result = logarithm(lognum);
+    }
+    else if (choice == 7)
+    {
+        double factorialnum;
+        std::cout << "Enter the number for factorial: ";
+        std::cin >> factorialnum;
+        result = factorial(factorialnum);
+    }
     
-    default:
-    std::cout << "Invalid Choice!";
-        break;
+    else if (choice >= 8 && choice<=10)
+    {
+        double angle;
+        std::cout << "Enter the angle in radians: ";
+        std::cin >> angle;
+        switch (choice)
+        {
+        case 8:
+            result = sine(angle);
+            break;
+        case 9:
+            result = cosine(angle);
+            break;
+        case 10:
+            result = tangent(angle);
+            break;
+        
+        default:
+            std::cout << "Invalid Choice!\n";
+            break;
+        }
     }
-    return 0;
+    else{
+        std::cout << "Invalid Choice!\n";
+    }
+    std::cout << "Result: " << result << '\n';
+
 }
 
-double sum(double num1, double num2){
-    return num1 + num2;
-
+double sum(double result, double next){
+    return result+next;
 }
-double difference(double num1, double num2){
-    return num1 - num2;
+double difference(double result, double next){
+    return result-next;
 }
-double multiply(double num1, double num2){
-    return num1 * num2;
+double multiply(double result, double next){
+    return result*next;
 }
-double divide(double num1, double num2){
-    return num1 / num2;
+double divide(double result, double next){
+    return result/next;
 }
 double power(double base, double exponent){
-    return pow(base,exponent);
-    
+    return pow(base, exponent);
 }
-double logarithm(double num1){
-    return log(num1);
+double logarithm(double lognum){
+    return log(lognum);
 }
-double factorial(double num){
-    if (num < 0)
+double factorial(double factorialnum){
+    if (factorialnum < 0)
     {
         return -1;
     }
-    else if (num == 0 || num == 1)
+    else if (factorialnum == 0 || factorialnum == 1)
     {
         return 1;
     }
     else{
-        double test_factorial = 1;
-        for (int i = num; i > 0; i--)
+        double sample_factorial = 1;
+        for (int i = factorialnum; i > 0; i--)
         {
-            test_factorial = i*test_factorial;
-        }
-        return test_factorial;
+            sample_factorial = i * sample_factorial;
+        }    
+        return sample_factorial;
     }
+    
 }
 double sine(double angle){
     return sin(angle);
