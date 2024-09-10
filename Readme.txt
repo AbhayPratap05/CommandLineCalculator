@@ -3,5 +3,6 @@ Project Overview:
 Objective: Create a calculator that can perform basic arithmetic (addition, subtraction, multiplication, division) and advanced functions like factorial, exponentiation, and trigonometric functions.
 Features:
 Support for basic operations (+, -, *, /)
+Supports as many arguments as the user inputs.
 Advanced operations (sin, cos, tan, log, power, factorial)
 Input validation and error handling for invalid inputs.
